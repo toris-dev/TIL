@@ -18,16 +18,19 @@ export default function ServerComponent() {
 파일 상단에 "use server" 지시문을 사용하여 별도의 파일에 서버 작업을 만든다.  
 그런 다음 서버 작업을 클라이언트 구성 요소로 가져온다.
 
-아래와 같이 lib/actions.ts 파일에 서버 액션을 모아두고 ClientComponent 에서 불러와서 사용하면 클라이언트 컴포넌트에서 서버 액션을 사용할 수 있다.
-![](image/serveraction_클라이언트컴포넌트%201.png)
+아래와 같이 lib/actions.ts 파일에 서버 액션을 모아두고 ClientComponent 에서 불러와서 사용하면 클라이언트 컴포넌트에서 서버 액션을 사용할 수 있다.  
 
-![](image/serveraction_서버액션%201.png)
-![](image/serveraction_클라이언트컴포넌트구조.png)
+
+![serveraction_클라이언트컴포넌트구조](/image/serveraction_클라이언트컴포넌트구조.png)
+
+![](/image/serveraction_클라이언트컴포넌트%201.png)
+
+![serveraction_serveraction_서버액션](/image/serveraction_서버액션%201.png)
 
 아래와 같이 `form` 이라는 태그안에서 `action` 이라는 props를 줘서 **서버 액션**을 선언 할 수 있다.
 또한 `form` 태그 안에 묶인 `input`, `button` 안에서도 `formAction` 이라는 props으로 줘서 **서버 액션**을 사용할 수 있다.
 
-![](image/serveraction사용법.png)
+![serveraction사용법](/image/serveraction사용법.png)
 
 
 
