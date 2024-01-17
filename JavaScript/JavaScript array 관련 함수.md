@@ -32,8 +32,8 @@ let shoppingCart = [
     price: 5.99,
   },
 ];
-const reducer = (acc, element) => {
-	return acc + element.qty * element.price
+const reducer = (acc, {qty, price}) => {
+	return acc + qty * price
 }
 
 const answer = shoppingCart.reduce(reducer, 0) // 0은 초기값, reducer 는 적용할 함수
