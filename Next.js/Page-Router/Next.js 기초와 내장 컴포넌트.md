@@ -1,5 +1,6 @@
-Next.js 는 단순히 SSR 만 제공하는게 아닌 프레임워크는 아닙니다.
-그 외에도 훌륭한 컴포넌트와 훅을 지원해주며 성능이 뛰어난 동적 웹 사이트를 만들 수 도 있으며 최근에는 최적화에 대해 굉장히 신경쓰고 있습니다.
+Next.js 는 단순히 SSR 만 제공하는 프레임워크는 아닙니다.
+그 외에도 훌륭한 컴포넌트와 훅을 지원하며 성능이 뛰어난 동적 웹 사이트를 만들 수 있으며 
+최근에는 최적화에 대해 굉장히 신경쓰고 있습니다.
 
 ## 라우팅 시스템
 원래 React 에서는 react-Router 라는 라우팅 라이브러리를 사용하여 외부 라이브러리를 설치를 하여 진행했었습니다. 
@@ -11,10 +12,11 @@ pages/ 디렉터리 안의 모든 파일은 곧 애플리케이션의 페이지�
 pages/ 디렉터리 안의 .js, .jsx, .ts, .tsx 파일에서 `export` 한 리액트 컴포넌트라고 볼 수 있습니다.
 
 **정적 라우팅과 동적 라우팅이 있습니다.**
-정적 라우팅은 pages/ 밑에 파일 이름으로 라우팅을 하게 되는 것입니다.
-
-동적 라우팅은 파일 이름에 [slug].tsx 이런식으로 대괄호로 묶으시면 됩니다.
-동적 라우팅인데 많이 디렉터리를 많이 만들어야 할때 가 있습니다.
+Next.js 라우팅에는 보통 3가지 방법이 존재합니다.
+1. **정적 라우팅은 pages/ 밑에 파일 이름으로 라우팅을 하게 되는 것입니다.**
+2. **동적 라우팅은 파일 이름에 [slug].tsx 이런식으로 대괄호로 묶으시면 됩니다.**
+   **그러면 [slug] slug안에 어떠한 값이 들어와도 경로 매개변수로 받습니다.**
+3. **동적 라우팅인데 [...slug].tsx 이런식으로 spread operator 을 사용하면 뒤에 어떠한 경로 매개변수가 와도 인식을 하고 [...slug].tsx 페이지로 이동합니다.**
 
 /posts/page/postId 이런식으로 되어있다면 디렉터리 구조를 만들기 힘들어지겠죠.
 이럴 때는 posts/[...postId].tsx 이렇게 만드시면 됩니다.
@@ -27,8 +29,9 @@ pages/ 디렉터리 안의 .js, .jsx, .ts, .tsx 파일에서 `export` 한 리액
 
 하지만 이렇게 막무가내로 들어가지게 되면 안되므로 직접 핸들링하여 리다이렉트 시킬수 있어야 합니다.
 
-또한 spread operator, []대괄호 를 이용한 slug 파일은 한 디렉터리 당 하나씩만 만들 수 있으며 중복되면 
-`Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path` 같은 경고를 보게 되며 slug 파일 둘 중 하나는 사용못한다.
+또한 spread operator, []대괄호 를 이용한 slug 파일은 한 디렉터리 당 하나씩만 만들 수 있으며 중복되면 개발 모드로 실행시켰을 경우 아래와 같은 에러가 떴습니다.
+`Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path` 같은 에러를 보게 되며 slug 파일 둘 중 하나는 사용 못합니다.
+
 
 
 또한 아래와 같은 디렉터리 구조에서는 **개발 모드**에서 실행하면
@@ -55,7 +58,7 @@ pages/ 디렉터리 안의 .js, .jsx, .ts, .tsx 파일에서 `export` 한 리액
 ![](../../image/스크린샷%202024-01-17%20234651.png)
 훅을 이용해서 가져왔는데도 위와 같은 결과가 나오는 것을 확인했습니다.
 
-즉, **CSR**, **SSR** 둘 다 경로 매개변수를 불어와서 사용할 수 있습니다.
+즉, **클라이언트**, **서버**에서 경로 매개변수를 불어와서 사용할 수 있습니다.
 
 ---
 ## 클라이언트에서의 내비게이션
@@ -140,10 +143,10 @@ module.exports = nextConfig
 ```
 
 Image 컴포넌트에는 4가지 필수 props이 있다.
-* `src=""`
+* `src="url"`
 * `width={200}`
 * `height={300}`
-* `alt=""`
+* `alt="대체할 텍스트"`
 ```javascript
 import Image from "next/image"
 import React from "react"
@@ -155,7 +158,7 @@ const Index = () => {
         width={500}
         height={500}
         src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbEjGAX%2FbtsDogEVjYz%2Fj6uDz8Y6DAigOSjhJnagv0%2Fimg.png"
-        alt="이미지"
+        alt="대체할 이미지"
       />
     </div>
   )
@@ -174,7 +177,8 @@ layout 속성에는 **fixed, responsive, intrinsic, fill** 이렇게 네 개의 
 	* 크기가 작은 화면에서는 이미지 크기를 조절하지만 이미지보다 큰 화면에서는 이미지 크기를 조절하지 않습니다.
 * `fill`
 	* 부모 요소와 가로와 세로 크기에 따라 이미지를 늘립니다. layout에 fill을 지정한 경우 width와 height 속성값을 함께 지정할 수 없습니다. 
-	* fill을 사용하는 것과 width/height 속성을 지정하는 것 중 하나만 가능합니다.
+	* fill을 사용하는 것과 width/height 속성을 지정하는 것 중 하나만 가능합니다. 
+	  둘다 사용하였을 경우 서버 Error 가 뜹니다.
 
 ---
 ### 메타데이터
@@ -220,6 +224,9 @@ MyApp 함수는 Component 라는 next.js 페이지 컴포넌트와 그 속성(pa
 
 챗봇은 아래와 같이 컴포넌트를 정의하여 _app.js 에서 불러옵니다.
 
+__참고__ `getInitialProps()` 는 레거시 API 이기 때문에 `getStaticProps()` 나 `getServerSideProps()`를 사용하는걸 권장합니다.
+**`getInitialProps` 메서드를 사용할 수는 있지만 이 함수를 쓰면 사이트 최적화 기능을 사용할 수 없으며, 무조건 서버에서 모든 페이지를 렌더링하게 된다는 점을 명심해야 합니다.**
+
 ```javascript
 import "@/styles/globals.css"
 import type { AppProps } from "next/app"
@@ -259,7 +266,6 @@ export default function Document() {
 }
 ```
 
-`getInitialProps()` 는 레거시 API 이기 때문에 `getStaticProps()` 나 `getServerSideProps()`를 사용하는걸 권장합니다.
 
 * Html 
 	* Next.js 애플리에키션의 <html> 태그에 해당합니다. 여기에 lang과 같은 표준 html 속성들을 전달할 수 있습니다.
@@ -274,7 +280,7 @@ export default function Document() {
 	  * NextScript는 이런 커스텀 자바스크립트가 위치하는 곳입니다.
 
 _app.js 와 마찬가지로 _document 도  `getStaticProps()` 나 `getServerSideProps()`를 사용할 수 없습니다.
-**`getInitialProps` 메서드를 사용할 수는 있지만 이 함수를 쓰면 사이트 최적화 기능을 사용할 수 없으며, 무조건 서버에서 모든 페이지를 렌더링하게 된다는 점을 명심해야 합니다.**
+
 
 
 ## 정리
