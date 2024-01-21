@@ -1,3 +1,12 @@
+---
+tistoryBlogName: toris-dev
+tistoryTitle: Next.js 기초와 내장 컴포넌트
+tistoryTags: Next.js,pagerouter
+tistoryVisibility: "0"
+tistoryCategory: "1418660"
+tistoryPostId: "15"
+tistoryPostUrl: https://toris-dev.tistory.com/15
+---
 Next.js 는 단순히 SSR 만 제공하는 프레임워크는 아닙니다.
 그 외에도 훌륭한 컴포넌트와 훅을 지원하며 성능이 뛰어난 동적 웹 사이트를 만들 수 있으며 
 최근에는 최적화에 대해 굉장히 신경쓰고 있습니다.
@@ -257,8 +266,8 @@ export default function Document() {
     <Html lang="en">
             <Head />     
       <body>
-                <Main />
-                <NextScript />     
+	    <Main />
+		<NextScript />     
       </body>
  
     </Html>

@@ -35,7 +35,8 @@ export default function ServerComponent() {
 
 
 ### useOptimistic 사용
-useOptimistic 은 Server Action이 호출되면 응답을 기다리지 않고 예상 결과를 반영하여 UI가 즉시 업데이트된다.
+useOptimistic 은 Server Action이 호출되면 응답을 기다리지 않고 예상 결과를 반영하여 UI가 즉시 업데이트 된다.
+
 하지만 이제 useOptimistic 으로 처리하라고 하는데 만약에 서버 액션이 처리가 잘못되었을 때 업데이트를 해버린다면 잘못되는게 아닌가 라는 생각이 든다...?  
 
 response를 기다리기 보다 서버액션이 끝나기전에 UI를 업데이트해준다.  
